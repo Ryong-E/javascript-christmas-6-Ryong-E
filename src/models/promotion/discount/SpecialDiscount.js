@@ -40,7 +40,7 @@ class SpecialDiscount {
   }
 
   #isEvent(reservationDate) {
-    if (!this.#eventDay.find(reservationDate)) {
+    if (!this.#eventDay.includes(reservationDate)) {
       throw new Error();
     }
   }
