@@ -27,7 +27,7 @@ class WeekdayDiscount {
   #calculateDiscount(order) {
     if (!order.dessert) return 0;
 
-    const mainMenuCount = order.desert.reduce((acc, current) => acc + current.quantity, 0);
+    const mainMenuCount = order.dessert.reduce((acc, current) => acc + current.quantity, 0);
 
     return this.#DISCOUNT * mainMenuCount;
   }
@@ -45,7 +45,7 @@ class WeekdayDiscount {
   }
 
   #isEventDay(reservationDate) {
-    if (!this.#eventDay.find(reservationDate)) throw new Error();
+    if (!this.#eventDay.includes(reservationDate)) throw new Error();
   }
 }
 export default WeekdayDiscount;
