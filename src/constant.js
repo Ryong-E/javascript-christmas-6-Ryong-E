@@ -6,6 +6,12 @@ export const EVENT_SETTING = {
   month: 11,
 };
 
+export const BEDGE_NAME = {
+  star: '별',
+  tree: '트리',
+  santa: '산타',
+};
+
 export const ERROR_MESSAGE = {
   not_allow_date: '유효하지 않은 날짜입니다. 다시 입력해주세요.',
   not_allow_menu: ' 유효하지 않은 주문입니다. 다시 입력해주세요.',
