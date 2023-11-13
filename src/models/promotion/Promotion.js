@@ -37,7 +37,7 @@ class Promotion {
     return results;
   }
 
-  geTotaltEventResult(order) {
+  getTotalEventResult(order) {
     const results = this.#getEventResult(order);
 
     return results;
@@ -47,7 +47,7 @@ class Promotion {
     const results = [];
 
     this.#evnets.forEach((event) => {
-      const result = event.getPresect(order);
+      const result = event.getPresent(order);
 
       if (result) results.push(result);
     });
