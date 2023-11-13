@@ -19,9 +19,9 @@ class Menus {
 
       if (foundMenu) return foundMenu;
 
-      throw new ValidationError(ERROR_MESSAGE.not_allow_menu);
-    } catch ({ message }) {
-      throw new ValidationError(message);
+      throw new Error();
+    } catch (error) {
+      throw new Error();
     }
   }
 
