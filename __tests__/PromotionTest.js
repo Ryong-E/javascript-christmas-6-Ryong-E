@@ -30,7 +30,7 @@ describe('프로모션 테스트', () => {
 
     const totalDiscount = 120000;
 
-    expect(promotion.geTotaltEventResult(totalDiscount)).toMatchObject([
+    expect(promotion.getTotalEventResult(totalDiscount)).toMatchObject([
       { discount: 25000, eventName: '증정 이벤트', present: '샴페인' },
     ]);
   });
@@ -40,6 +40,6 @@ describe('프로모션 테스트', () => {
 
     const totalDiscount = 10000;
 
-    expect(promotion.geTotaltEventResult(totalDiscount)).toHaveLength(0);
+    expect(promotion.getTotalEventResult(totalDiscount)).toHaveLength(0);
   });
 });
