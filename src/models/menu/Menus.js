@@ -21,7 +21,7 @@ class Menus {
 
       throw new Error();
     } catch (error) {
-      throw new Error();
+      throw new ValidationError(ERROR_MESSAGE.not_allow_menu);
     }
   }
 
@@ -37,7 +37,7 @@ class Menus {
   }
 
   static #quantiryValidate(quantity) {
-    if (quantity < 1) throw new ValidationError(ERROR_MESSAGE.not_allow_menu);
+    if (quantity < 1) throw new Error();
   }
 }
 
