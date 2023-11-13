@@ -59,5 +59,9 @@ class Bill {
       }
     });
   }
+
+  issuanceBedge() {
+    this.#bedge.issuanceBedge(this.getTotalDiscountAmount());
+  }
 }
 export default Bill;
