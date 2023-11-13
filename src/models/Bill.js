@@ -41,14 +41,18 @@ class Bill {
     });
   }
 
-  applyDiscount() {
+  applyPromotion() {
     const totalDiscountList = this.#promotion.getTotalDiscountResult(
       this.#reservationDate,
       this.#orderMenuList,
     );
+    const totalEventList = this.#promotion.getTotalEventResult(this.getTotalOrderAmount());
 
     if (totalDiscountList) {
       this.#discountedList = totalDiscountList;
+    }
+    if (totalEventList) {
+      this.#discountedList = this.#discountedList.concat(totalEventList);
     }
   }
 
@@ -97,6 +101,10 @@ class Bill {
     });
 
     return total;
+  }
+
+  getReservationDate() {
+    return this.#reservationDate;
   }
 
   static #sumCategoryOrderAmount(category) {
