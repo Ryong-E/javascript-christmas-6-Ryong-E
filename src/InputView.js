@@ -14,9 +14,9 @@ const InputView = {
   },
 
   async askOrderMenu() {
-    const input = await Console.readLineAsync('메뉴 입력해주세요');
+    const input = await Console.readLineAsync(OUTPUT_MESSAGE.ask_order_menu);
     OrderValidator.isDuplicateOrder(input);
-    OrderValidator.isAmount(input);
+    OrderValidator.isLessAmount(input);
     OrderValidator.isExceedOrder(input);
 
     return this.transOrder(input);
