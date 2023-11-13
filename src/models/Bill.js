@@ -51,5 +51,13 @@ class Bill {
       this.#discountedList = totalDiscountList;
     }
   }
+
+  checkPresent() {
+    this.#discountedList.forEach((discountInfo) => {
+      if (discountInfo.present) {
+        this.#present.push(discountInfo.present);
+      }
+    });
+  }
 }
 export default Bill;
