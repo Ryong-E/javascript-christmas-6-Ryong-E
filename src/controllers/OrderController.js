@@ -1,6 +1,5 @@
 import InputView from '../InputView.js';
 import OutputView from '../OutputView.js';
-import { ERROR_MESSAGE } from '../constant.js';
 import Bill from '../models/Bill.js';
 
 class OrderController {
