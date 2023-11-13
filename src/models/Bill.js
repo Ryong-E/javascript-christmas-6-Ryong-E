@@ -63,5 +63,49 @@ class Bill {
   issuanceBedge() {
     this.#bedge.issuanceBedge(this.getTotalDiscountAmount());
   }
+
+  getDiscountList() {
+    return this.#discountedList;
+  }
+
+  getOrderList() {
+    return this.#orderMenuList;
+  }
+
+  getPresentList() {
+    return this.#present;
+  }
+
+  getBedge() {
+    return this.#bedge.getBedge();
+  }
+
+  getTotalDiscountAmount() {
+    let total = 0;
+    this.#discountedList.forEach((discountInfo) => {
+      total += discountInfo.discount;
+    });
+
+    return total;
+  }
+
+  getTotalOrderAmount() {
+    let total = 0;
+    const categotys = Object.values(this.#orderMenuList);
+    categotys.forEach((category) => {
+      total += Bill.#sumCategoryOrderAmount(category);
+    });
+
+    return total;
+  }
+
+  static #sumCategoryOrderAmount(category) {
+    let sum = 0;
+    category.forEach((order) => {
+      sum += order.price * order.quantity;
+    });
+
+    return sum;
+  }
 }
 export default Bill;
