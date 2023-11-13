@@ -1,6 +1,9 @@
 export const DECEMBER_LAST_DAY = 31;
 export const CHRISTMAS_DATE = 25;
 
+export const EMPTY = '';
+export const NOT = '없음';
+
 export const ORDER_SETTING = {
   max_order: 20,
 };
