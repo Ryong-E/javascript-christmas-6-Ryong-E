@@ -40,5 +40,16 @@ class Bill {
       this.#orderMenuList[category] = [menu];
     });
   }
+
+  applyDiscount() {
+    const totalDiscountList = this.#promotion.getTotalDiscountResult(
+      this.#reservationDate,
+      this.#orderMenuList,
+    );
+
+    if (totalDiscountList) {
+      this.#discountedList = totalDiscountList;
+    }
+  }
 }
 export default Bill;
