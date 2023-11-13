@@ -1,5 +1,5 @@
 import ValidationError from '../../ValidationError.js';
-import ERROR_MESSAGE from '../../constant.js';
+import { ERROR_MESSAGE } from '../../constant.js';
 import AppetizerMenu from './AppetizerMenu.js';
 import DessertMenu from './DessertMenu.js';
 import DrinkMenu from './DrinkMenu.js';
