@@ -26,8 +26,9 @@ class OrderValidator {
     const splitMenu = input.split(',');
 
     splitMenu.forEach((order) => {
-      Util.isNumber();
-      orderCount += Number(order.split('-')[1]);
+      const amount = order.split('-')[1];
+      Util.isNumber(amount);
+      orderCount += Number(amount);
     });
 
     if (orderCount > ORDER_SETTING.max_order) throw new Error();
