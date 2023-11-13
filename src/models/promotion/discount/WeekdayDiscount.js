@@ -25,7 +25,7 @@ class WeekdayDiscount {
   }
 
   #calculateDiscount(order) {
-    if (!order.dessert) return 0;
+    if (!order.dessert) throw new Error();
 
     const mainMenuCount = order.dessert.reduce((acc, current) => acc + current.quantity, 0);
 
