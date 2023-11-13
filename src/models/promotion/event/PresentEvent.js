@@ -3,18 +3,18 @@ class PresentEvent {
 
   #DISCOUNT_BASIS;
 
-  #presendItem;
+  #presentItem;
 
   constructor() {
     this.#eventName = '증정 이벤트';
-    this.#presendItem = '샴페인';
+    this.#presentItem = '샴페인';
     this.#DISCOUNT_BASIS = 120000;
   }
 
-  getPresect(totalDiscount) {
+  getPresent(totalDiscount) {
     try {
       this.#isEvent(totalDiscount);
-      return { eventName: this.#eventName, discount: 25000, present: this.#presendItem };
+      return { eventName: this.#eventName, discount: 25000, present: this.#presentItem };
     } catch (erorr) {
       return false;
     }
