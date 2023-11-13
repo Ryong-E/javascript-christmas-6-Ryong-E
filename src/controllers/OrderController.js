@@ -19,8 +19,8 @@ class OrderController {
       const date = await InputView.askReservationDate();
       this.#bill = new Bill(date);
     } catch (error) {
-      OutputView.print(ERROR_MESSAGE.not_allow_date);
-      await this.askReservationDate();
+      OutputView.print(error.message);
+      await this.#askReservationDate();
     }
   }
 
@@ -31,8 +31,8 @@ class OrderController {
       OutputView.printEventInfo(this.#bill.getReservationDate());
       OutputView.printMenu(orders);
     } catch (error) {
-      OutputView.print(ERROR_MESSAGE.not_allow_menu);
-      await this.askOrderMenu();
+      OutputView.print(error.message);
+      await this.#askOrderMenu();
     }
   }
 
