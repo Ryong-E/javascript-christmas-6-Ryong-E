@@ -1,8 +1,11 @@
 class Menu {
   #menu;
 
-  constructor(menu) {
+  #category;
+
+  constructor(menu, category) {
     this.#menu = menu;
+    this.#category = category;
   }
 
   getMenuPrice(menuName, quantity) {
@@ -11,7 +14,7 @@ class Menu {
     if (menuName in this.#menu) {
       totalAmount = this.#menu[menuName] * quantity;
       menu = { name: menuName, price: this.#menu[menuName], quantity };
-      return { totalAmount, menu };
+      return { totalAmount, menu, category: this.#category };
     }
 
     return false;
