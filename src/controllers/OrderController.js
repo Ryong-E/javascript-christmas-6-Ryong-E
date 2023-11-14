@@ -9,7 +9,6 @@ class OrderController {
     OutputView.printIntro();
     await this.#askReservationDate();
     await this.#askOrderMenu();
-    this.#applyPromotion();
     this.#printBill();
   }
 
@@ -27,18 +26,13 @@ class OrderController {
     try {
       const orders = await InputView.askOrderMenu();
       this.#bill.setMenu(orders);
+      this.#bill.checkToApplyPromotion(() => OutputView.printNoticeUnApply());
       OutputView.printEventInfo(this.#bill.getReservationDate());
       OutputView.printMenu(orders);
     } catch (error) {
       OutputView.print(error.message);
       await this.#askOrderMenu();
     }
-  }
-
-  #applyPromotion() {
-    this.#bill.applyPromotion();
-    this.#bill.checkPresent();
-    this.#bill.issuanceBedge();
   }
 
   #printBill() {

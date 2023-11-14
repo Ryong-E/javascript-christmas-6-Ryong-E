@@ -1,5 +1,5 @@
 import Bedge from './Bedge.js';
-import Menus from './menu/Menus.js';
+import Order from './Order.js';
 import Promotion from './promotion/Promotion.js';
 
 class Bill {
@@ -15,36 +15,34 @@ class Bill {
 
   #promotion;
 
-  #menu;
-
   constructor(date) {
     this.#reservationDate = date;
+    this.#discountedList = [];
     this.#present = [];
     this.#bedge = new Bedge();
-    this.#orderMenuList = {};
-    this.#menu = new Menus();
+    this.#orderMenuList = new Order();
     this.#promotion = new Promotion();
   }
 
   setMenu(orders) {
-    orders.forEach((order) => {
-      const { menuName, quantity } = order;
-      const classifiedMenu = this.#menu.getOrderState(menuName, quantity);
-      const { menu, category } = classifiedMenu;
-
-      if (category in this.#orderMenuList) {
-        this.#orderMenuList[category].push(menu);
-        return;
-      }
-
-      this.#orderMenuList[category] = [menu];
-    });
+    this.#orderMenuList.setMenu(orders);
   }
 
-  applyPromotion() {
+  checkToApplyPromotion(noticeFn) {
+    if (this.#orderMenuList.isLessMininum(noticeFn)) return;
+    this.#applyEvent();
+  }
+
+  #applyEvent() {
+    this.#applyPromotion();
+    this.#checkPresent();
+    this.#issuanceBedge();
+  }
+
+  #applyPromotion() {
     const totalDiscountList = this.#promotion.getTotalDiscountResult(
       this.#reservationDate,
-      this.#orderMenuList,
+      this.#orderMenuList.getOrderMenuList(),
     );
     const totalEventList = this.#promotion.getTotalEventResult(this.getTotalOrderAmount());
 
@@ -56,7 +54,7 @@ class Bill {
     }
   }
 
-  checkPresent() {
+  #checkPresent() {
     this.#discountedList.forEach((discountInfo) => {
       if (discountInfo.present) {
         this.#present.push(discountInfo.present);
@@ -64,7 +62,7 @@ class Bill {
     });
   }
 
-  issuanceBedge() {
+  #issuanceBedge() {
     this.#bedge.issuanceBedge(this.getTotalDiscountAmount());
   }
 
@@ -86,6 +84,7 @@ class Bill {
 
   getTotalDiscountAmount() {
     let total = 0;
+    if (this.#discountedList.length === 0) return 0;
     this.#discountedList.forEach((discountInfo) => {
       total += discountInfo.discount;
     });
@@ -94,26 +93,11 @@ class Bill {
   }
 
   getTotalOrderAmount() {
-    let total = 0;
-    const categotys = Object.values(this.#orderMenuList);
-    categotys.forEach((category) => {
-      total += Bill.#sumCategoryOrderAmount(category);
-    });
-
-    return total;
+    return this.#orderMenuList.getTotalOrderAmount();
   }
 
   getReservationDate() {
     return this.#reservationDate;
-  }
-
-  static #sumCategoryOrderAmount(category) {
-    let sum = 0;
-    category.forEach((order) => {
-      sum += order.price * order.quantity;
-    });
-
-    return sum;
   }
 }
 export default Bill;

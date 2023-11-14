@@ -6,6 +6,7 @@ export const NOT = '없음';
 
 export const ORDER_SETTING = {
   max_order: 20,
+  min_discount_amount: 10000,
 };
 
 export const EVENT_SETTING = {
