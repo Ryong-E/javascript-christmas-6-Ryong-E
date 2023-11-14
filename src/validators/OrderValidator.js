@@ -1,5 +1,5 @@
 import ValidationError from '../ValidationError.js';
-import { ERROR_MESSAGE, ORDER_SETTING, REGEXP } from '../constant.js';
+import { ERROR_MESSAGE, REGEXP } from '../constant.js';
 
 class OrderValidator {
   static isDuplicateOrder(input) {
@@ -19,19 +19,6 @@ class OrderValidator {
       OrderValidator.isNumber(amount);
       if (amount < 1) throw new Error();
     });
-  }
-
-  static isExceedOrder(input) {
-    let orderCount = 0;
-    const splitMenu = input.split(',');
-
-    splitMenu.forEach((order) => {
-      const amount = order.split('-')[1];
-      OrderValidator.isNumber(amount);
-      orderCount += Number(amount);
-    });
-
-    if (orderCount > ORDER_SETTING.max_order) throw new Error();
   }
 
   static isNumber(value) {
