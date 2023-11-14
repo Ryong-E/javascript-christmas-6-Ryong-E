@@ -16,7 +16,6 @@ const InputView = {
     const input = await Console.readLineAsync(OUTPUT_MESSAGE.ask_order_menu);
     OrderValidator.isDuplicateOrder(input);
     OrderValidator.isLessAmount(input);
-    OrderValidator.isExceedOrder(input);
 
     return this.transOrder(input);
   },
