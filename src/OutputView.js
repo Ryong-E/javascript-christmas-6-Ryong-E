@@ -7,7 +7,14 @@ const OutputView = {
   },
 
   printIntro() {
+    Console.print(EMPTY);
     Console.print(OUTPUT_MESSAGE.intro);
+  },
+
+  printNoticeUnApply() {
+    Console.print(EMPTY);
+    Console.print(OUTPUT_MESSAGE.less_amount);
+    Console.print(EMPTY);
   },
 
   printMenu(orders) {
