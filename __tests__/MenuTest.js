@@ -1,5 +1,6 @@
 import DrinkMenu from '../src/models/menu/DrinkMenu';
 import MainMenu from '../src/models/menu/MainMenu';
+import Menu from '../src/models/menu/Menu';
 import Menus from '../src/models/menu/Menus';
 
 describe('Menu 테스트', () => {
@@ -8,6 +9,24 @@ describe('Menu 테스트', () => {
     const drinkMenu = new DrinkMenu();
     expect(mainMenu.getMenuPrice('바비큐립', 1)).toMatchObject({ totalAmount: 54000 });
     expect(drinkMenu.getMenuPrice('제로콜라', 1)).toMatchObject({ totalAmount: 3000 });
+  });
+
+  test('새로운 menu생성 테스트', () => {
+    class Asian extends Menu {
+      constructor() {
+        super(
+          {
+            쌀국수: 8000,
+            분짜: 12000,
+            팟타이: 9000,
+          },
+          'asian',
+        );
+      }
+    }
+    const asian = new Asian();
+    expect(asian.getMenuPrice('쌀국수', 1)).toMatchObject({ totalAmount: 8000 });
+    expect(asian.getMenuPrice('분짜', 2)).toMatchObject({ totalAmount: 24000 });
   });
 });
 
