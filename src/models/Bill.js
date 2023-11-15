@@ -1,81 +1,51 @@
 import Bedge from './Bedge.js';
-import Order from './Order.js';
-import Promotion from './promotion/Promotion.js';
+import DiscountManager from './DiscountManager.js';
+import OrderManager from './OrderManager.js';
 
 class Bill {
   #reservationDate;
 
-  #discountedList;
+  #orderManager;
 
-  #orderMenuList;
-
-  #present;
+  #discountManager;
 
   #bedge;
 
-  #promotion;
-
   constructor(date) {
     this.#reservationDate = date;
-    this.#discountedList = [];
-    this.#present = [];
+    this.#discountManager = new DiscountManager();
     this.#bedge = new Bedge();
-    this.#orderMenuList = new Order();
-    this.#promotion = new Promotion();
+    this.#orderManager = new OrderManager();
   }
 
   setMenu(orders) {
-    this.#orderMenuList.setMenu(orders);
+    this.#orderManager.setMenu(orders);
   }
 
   checkToApplyPromotion(noticeFn) {
-    if (this.#orderMenuList.isLessMininum(noticeFn)) return;
+    if (this.#orderManager.isLessMininum(noticeFn)) return;
     this.#applyEvent();
   }
 
   #applyEvent() {
-    this.#applyPromotion();
-    this.#checkPresent();
-    this.#issuanceBedge();
-  }
-
-  #applyPromotion() {
-    const totalDiscountList = this.#promotion.getTotalDiscountResult(
+    this.#discountManager.apply(
       this.#reservationDate,
-      this.#orderMenuList.getOrderMenuList(),
+      this.#orderManager.getOrderMenuList(),
+      this.#orderManager.getTotalOrderAmount(),
     );
-    const totalEventList = this.#promotion.getTotalEventResult(this.getTotalOrderAmount());
-
-    if (totalDiscountList) {
-      this.#discountedList = totalDiscountList;
-    }
-    if (totalEventList) {
-      this.#discountedList = this.#discountedList.concat(totalEventList);
-    }
-  }
-
-  #checkPresent() {
-    this.#discountedList.forEach((discountInfo) => {
-      if (discountInfo.present) {
-        this.#present.push(discountInfo.present);
-      }
-    });
-  }
-
-  #issuanceBedge() {
     this.#bedge.issuanceBedge(this.getTotalDiscountAmount());
   }
 
   getDiscountList() {
-    return this.#discountedList;
+    return this.#discountManager.getDiscountList();
   }
 
   getOrderList() {
-    return this.#orderMenuList;
+    return this.#orderManager;
   }
 
   getPresentList() {
-    return this.#present;
+    return this.#discountManager.getPresentList();
   }
 
   getBedge() {
@@ -83,17 +53,11 @@ class Bill {
   }
 
   getTotalDiscountAmount() {
-    let total = 0;
-    if (this.#discountedList.length === 0) return 0;
-    this.#discountedList.forEach((discountInfo) => {
-      total += discountInfo.discount;
-    });
-
-    return total;
+    return this.#discountManager.getTotalDiscountAmount();
   }
 
   getTotalOrderAmount() {
-    return this.#orderMenuList.getTotalOrderAmount();
+    return this.#orderManager.getTotalOrderAmount();
   }
 
   getReservationDate() {
