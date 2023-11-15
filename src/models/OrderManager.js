@@ -2,7 +2,7 @@ import ValidationError from '../ValidationError.js';
 import { ERROR_MESSAGE, ORDER_SETTING } from '../constant.js';
 import Menus from './menu/Menus.js';
 
-class Order {
+class OrderManager {
   #orderMenuList;
 
   #menu;
@@ -13,7 +13,7 @@ class Order {
   }
 
   setMenu(orders) {
-    Order.#isExceedOrder(orders);
+    OrderManager.#isExceedOrder(orders);
     this.#allocateMenu(orders);
     this.#hasOnlyDrink();
   }
@@ -75,7 +75,7 @@ class Order {
 
     if (categotys.length !== 0) {
       categotys.forEach((category) => {
-        total += Order.#sumCategoryOrderAmount(category);
+        total += OrderManager.#sumCategoryOrderAmount(category);
       });
     }
 
@@ -91,4 +91,4 @@ class Order {
     return sum;
   }
 }
-export default Order;
+export default OrderManager;
