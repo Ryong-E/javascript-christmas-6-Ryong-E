@@ -1,8 +1,6 @@
 import Menu from './Menu.js';
 
 class MainMenu extends Menu {
-  #menu;
-
   constructor() {
     super(
       {
